@@ -22,4 +22,18 @@ class Day2Test {
 
         System.out.println(result);
     }
+
+    @Test
+    void getPower_sampleInput() {
+        var result = subject.getPower("sampleInput.txt");
+
+        assertThat(result).isEqualTo(2286);
+    }
+
+    @Test
+    void getPower_answer() {
+        var result = subject.getPower("input.txt");
+
+        System.out.println(result);
+    }
 }

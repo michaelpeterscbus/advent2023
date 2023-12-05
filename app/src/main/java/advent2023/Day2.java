@@ -39,6 +39,37 @@ public class Day2 {
         return total;
     }
 
+    @SneakyThrows
+    public double getPower(String filename) {
+        var reader = new BufferedReader(new FileReader("src/test/resources/day2/" + filename));
+        String line;
+        double total = 0;
+        while ((line = reader.readLine()) != null) {
+            var allTurns = line.split(":")[1];
+            var turns = allTurns.split(";");
+            boolean isPossible = true;
+            var blockCounts = new HashMap<>(Map.of("red", -1, "green", -1, "blue", -1));
+            for (var turn : turns) {
+                var blocks = turn.split(",");
+                for (var block : blocks) {
+                    var pair = block.split(" ");
+                    int blockCount = Integer.parseInt(pair[1]);
+                    String color = pair[2];
+                    var max = blockCounts.get(color);
+                    if (blockCount > max) {
+                        blockCounts.put(color, blockCount);
+                    }
+                }
+            }
+            var num = 1;
+            for (var count : blockCounts.values()) {
+                num *= count;
+            }
+            total += num;
+        }
+        return total;
+    }
+
     private int getGameNumber(String line) {
         var gameStr = line.split(":")[0];
         var numStr = gameStr.replace("Game ", "");
